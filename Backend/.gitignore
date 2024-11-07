@@ -1,0 +1,18 @@
+# Node modules
+node_modules/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Dependency directories
+.yarn/
+.pnp.*
+
+# Build directories
+dist/
+build/
+
+# Environment variables
+.env
