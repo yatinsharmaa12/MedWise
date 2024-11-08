@@ -11,6 +11,8 @@ import Report from './pages/Report'
 import Navbar from './components/Navbar'
 import Login from './components/Login'
 import Signup from './components/Signup'
+import Footer from './components/Footer'
+
 function App() {
   const [count, setCount] = useState(0)
 

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Navbar() {
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-black-600 text-white shadow-md p-4">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -24,42 +24,42 @@ function Navbar() {
           </div>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
+            className="menu menu-sm dropdown-content bg-white text-black rounded-box mt-3 w-52 p-2 shadow-lg"
           >
             <li>
-              <Link to="/">Home</Link>
+              <Link to="/" className="hover:bg-blue-500 hover:text-white">Home</Link>
             </li>
             <li>
-              <Link to="/consult">Consult</Link>
+              <Link to="/consult" className="hover:bg-blue-500 hover:text-white">Consult</Link>
             </li>
             <li>
-              <Link to="/reports">Reports</Link>
+              <Link to="/reports" className="hover:bg-blue-500 hover:text-white">Reports</Link>
             </li>
             <li>
-              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/dashboard" className="hover:bg-blue-500 hover:text-white">Dashboard</Link>
             </li>
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-xl">Medwise</Link>
+        <Link to="/" className="btn btn-ghost text-xl font-bold">Medwise</Link>
       </div>
       <div className="navbar-center hidden lg:flex">
-        <ul className="menu menu-horizontal px-1">
+        <ul className="menu menu-horizontal px-1 space-x-4">
           <li>
-            <Link to="/">Home</Link>
+            <Link to="/" className="hover:text-gray-200">Home</Link>
           </li>
           <li>
-            <Link to="/consult">Consult</Link>
+            <Link to="/consult" className="hover:text-gray-200">Consult</Link>
           </li>
           <li>
-            <Link to="/reports">Reports</Link>
+            <Link to="/reports" className="hover:text-gray-200">Reports</Link>
           </li>
           <li>
-            <Link to="/dashboard">Dashboard</Link>
+            <Link to="/dashboard" className="hover:text-gray-200">Dashboard</Link>
           </li>
         </ul>
       </div>
       <div className="navbar-end">
-        <Link to="/login" className="btn">Login</Link>
+        <Link to="/login" className="btn bg-white text-blue-600 hover:bg-gray-100 border-none rounded-md px-4 py-2 shadow-md">Login</Link>
       </div>
     </div>
   );
