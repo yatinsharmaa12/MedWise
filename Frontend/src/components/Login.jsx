@@ -1,6 +1,31 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user");
+  const navigate = useNavigate();
+  const handleSubmit = async(e)=>{
+    try{
+      e.preventDefault();
+    console.log(email,password,role);
+    const response = await axios.post(
+      role=="doctor"?
+      "http://localhost:5000/api/doc/login"
+      :"http://localhost:5000/api/user/login"
+      ,{
+      email,
+      password
+    });
+
+    console.log(response);
+    navigate(role=== "doctor"? "/dashboard": "/");
+  }
+    catch(err){
+      console.log(err);
+    }
+  }
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
@@ -16,6 +41,7 @@ const Login = () => {
                 required
                 className="w-full px-3 py-2 border border-gray-300 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Email address"
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div>
@@ -27,6 +53,7 @@ const Login = () => {
                 required
                 className="w-full px-3 py-2 mt-2 border border-gray-300 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
                 placeholder="Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </div>
@@ -38,6 +65,7 @@ const Login = () => {
           <div>
             <button
               type="submit"
+              onClick={handleSubmit}
               className="w-full py-2 px-4 text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
             >
               Sign In
@@ -45,7 +73,7 @@ const Login = () => {
           </div>
         </form>
         <p className="text-sm text-center text-gray-600">
-          Don't have an account? <a href="/signup" className="text-indigo-600 hover:text-indigo-500">Sign Up</a>
+          Don't have an account? <Link to={"/signup"} className="text-indigo-600 hover:text-indigo-500">Sign Up</Link>
         </p>
       </div>
     </div>
