@@ -57,6 +57,20 @@ const Login = () => {
               />
             </div>
           </div>
+           {}
+           <div className="mt-4">
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">Select Role</label>
+            <select
+              id="role"
+              name="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="user">User</option>
+              <option value="doctor">Doctor</option>
+            </select>
+          </div>
 
           <div className="flex items-center justify-between">
             <a href="#" className="text-sm text-indigo-600 hover:text-indigo-500">Forgot your password?</a>

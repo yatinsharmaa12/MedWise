@@ -7,21 +7,27 @@ const Signup = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("user"); 
   const navigate = useNavigate();
   const handleSubmit = async(e) =>{
-    try{e.preventDefault();
+    try{
+      e.preventDefault();
     
-    const response = await axios.post("http://localhost:5000/api/auth/signup",{
+    const response = await axios.post(
+      role=== "doctor"
+    ?"http://localhost:5000/api/doc/signup":
+      "http://localhost:5000/api/auth/signup",{
       name,
       email,
       password
     });
     console.log(response);
     toast.success(response.data.message);
-    navigate("/")
+    navigate(role=== "doctor" ? "/dashboard" : "/");
   }
     catch(err){
       console.log(err);
+      toast.error(err.response.data.message);
     }
   }
   return (
@@ -67,6 +73,22 @@ const Signup = () => {
               />
             </div>
           </div>
+
+          {/* Dropdown for selecting role */}
+          <div className="mt-4">
+            <label htmlFor="role" className="block text-sm font-medium text-gray-700">Select Role</label>
+            <select
+              id="role"
+              name="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              className="w-full px-3 py-2 mt-1 border border-gray-300 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+            >
+              <option value="user">User</option>
+              <option value="doctor">Doctor</option>
+            </select>
+          </div>
+
 
           <div>
             <button
