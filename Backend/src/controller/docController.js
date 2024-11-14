@@ -6,15 +6,25 @@ const signup = async (req,res) => {
 
     const doctorExists = await Doctor.findOne({email});
 
+
     if(doctorExists) {
         return res.status(400).json({message: "User already exists"});
     }
 
     const doctor = new Doctor({name,email,password});
+    const token = jwt.sign(
+        {
+            id:doctor._id,
+            name:doctor.name,
+            email:doctor.email
+        },
+        process.env.JWT_SECRET,
+        {expiresIn:"1h"}
+    );
 
     try{
         const info = await doctor.save();
-        res.status(201).json({message: "You can update your profile now",info});
+        res.status(201).json({message: "You can update your profile now",info,token});
 
     } catch(error){
         res.status(500).json({message: "Something went wrong",error});
@@ -45,10 +55,15 @@ const login = async (req,res) => {
 
 
 const updateProfile = async (req,res) => {
-    try{const {id,profile} = req.body;
+    try{const {id,profile,jwtToken} = req.body;
     const doctor = await Doctor.findById(id);
     if(!doctor){
         return res.status(400).json({message: "Doctor not found"});
+    }
+    
+    const decoded = jwt.verify(jwtToken,process.env.JWT_SECRET);
+    if(decoded.id !== id){
+        return res.status(403).json({message: "You are not authorized to update this profile"});
     }
     const updatedDoctor = await Doctor.findByIdAndUpdate(id,{...profile},{new:true});
      return res.status(200).json({message: "Profile updated successfully",updatedDoctor});}
