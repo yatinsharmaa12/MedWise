@@ -61,5 +61,33 @@ const updateProfile = async (req,res) => {
     // await Doctor.findByIdAndUpdate(id,);
 }
 
-module.exports = {signup,login,updateProfile};
+
+const getAllDoctor = async(req,res) => {
+    const Doctors = await Doctor.find({visible:true});
+    const updatedDoctors = Doctors.map((doctor)=>{
+        return {
+           _id: doctor._id,
+            name: doctor.name,
+            specialization: doctor.specialization,
+            description: doctor.description   
+        }
+       
+    })
+     return res.status(200).json({message: "All doctors",updatedDoctors});
+}
+
+
+const getDoctor = async(req,res) => {
+    const {id} = req.params;
+    const doctor = await Doctor.findById(id);
+
+    if(!doctor){
+        return res.status(400).json({message: "Doctor not found"});
+    }
+    return res.status(200).json({message: "Doctor found",doctor});
+}
+
+module.exports = {signup,login,updateProfile,getAllDoctor,getDoctor};
+
+
 
