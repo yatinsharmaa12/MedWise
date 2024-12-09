@@ -5,6 +5,9 @@ import { defineConfig } from "vite"
 export default defineConfig({
   plugins: [react()],
   base: '/',
+  build:{
+    outDir: 'Frontend/dist'
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
