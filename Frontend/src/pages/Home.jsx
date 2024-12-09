@@ -74,7 +74,7 @@ function Home() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
           >
-            Welcome to MedWise
+            Welcome to MedWise by ridhima
           </motion.h1>
           <motion.p 
             className="text-xl max-w-2xl mx-auto mb-8"

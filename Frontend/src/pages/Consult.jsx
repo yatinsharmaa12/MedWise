@@ -32,36 +32,40 @@ function ConsultationPage() {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white py-12 px-6"
+      className="min-h-screen bg-gradient-to-b from-gray-900 to-gray-800 text-white py-16 px-6"
     >
-      <h2 className="text-4xl font-bold text-center mb-8">Consult a Doctor</h2>
-      <p className="text-lg text-center text-gray-300 mb-8">Find specialists and start your consultation journey.</p>
+      <div className="container mx-auto">
+        {/* Heading */}
+        <h2 className="text-5xl font-bold text-center mb-6">Consult a Doctor</h2>
+        <p className="text-lg text-center text-gray-300 mb-10">
+          Find specialists and start your consultation journey.
+        </p>
 
-      {/* Filter/Search */}
-      <div className="flex justify-center mb-8">
-        <input
-          type="text"
-          placeholder="Search by specialty"
-          className="px-4 py-2 w-full max-w-md rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
+        {/* Filter/Search */}
+        <div className="flex justify-center mb-10">
+          <input
+            type="text"
+            placeholder="Search by specialty"
+            className="px-4 py-2 w-full max-w-md rounded-full bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all duration-300"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        {/* Doctors Grid */}
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+        >
+          {filteredDoctors.map((doctor) => (
+            <DoctorCard key={doctor.id} doctor={doctor} />
+          ))}
+        </motion.div>
       </div>
-
-      {/* Doctors Grid */}
-      <motion.div 
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-      >
-        {filteredDoctors.map((doctor) => (
-          <DoctorCard key={doctor.id} doctor={doctor} />
-        ))}
-      </motion.div>
     </motion.section>
   );
 }
 
 export default ConsultationPage;
-

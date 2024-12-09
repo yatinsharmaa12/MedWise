@@ -10,16 +10,17 @@ function ChatPage() {
   const [inputMessage, setInputMessage] = useState("");
   const messagesEndRef = useRef(null);
 
+  // Mock data for doctor and user details
+  const doctorDetails = { name: "Dr. John Doe", specialization: "Cardiologist" };
+  const userDetails = { name: "Jane Smith", age: 30 };
+
   useEffect(() => {
-    // Join the room
     socket.emit("join", doctorId);
 
-    // Listen for incoming messages
     socket.on("message", (message) => {
       setMessages((prevMessages) => [...prevMessages, message]);
     });
 
-    // Cleanup on component unmount
     return () => {
       socket.off("message");
       socket.emit("leave", doctorId);
@@ -43,8 +44,23 @@ function ChatPage() {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-900 text-white">
-      <div className="flex-1 overflow-y-auto p-4">
+    <div className="flex flex-col h-screen bg-gray-100">
+      {/* Header with Doctor and User Details */}
+      <div className="bg-blue-700 text-white p-4 shadow-md">
+        <div className="flex justify-between items-center">
+          <div>
+            <h2 className="text-lg font-bold">{doctorDetails.name}</h2>
+            <p className="text-sm">{doctorDetails.specialization}</p>
+          </div>
+          <div>
+            <h2 className="text-lg font-bold">{userDetails.name}</h2>
+            <p className="text-sm">Age: {userDetails.age}</p>
+          </div>
+        </div>
+      </div>
+
+      {/* Chat Messages */}
+      <div className="flex-1 overflow-y-auto p-4 bg-white">
         {messages.map((msg, index) => (
           <div
             key={index}
@@ -53,10 +69,10 @@ function ChatPage() {
             }`}
           >
             <div
-              className={`inline-block p-2 rounded-lg ${
+              className={`inline-block p-3 rounded-lg ${
                 msg.sender === "user"
                   ? "bg-blue-600 text-white"
-                  : "bg-gray-700 text-gray-200"
+                  : "bg-gray-200 text-gray-800"
               }`}
             >
               {msg.text}
@@ -65,18 +81,20 @@ function ChatPage() {
         ))}
         <div ref={messagesEndRef} />
       </div>
-      <form onSubmit={handleSubmit} className="p-4 bg-gray-800">
+
+      {/* Input Field */}
+      <form onSubmit={handleSubmit} className="p-4 bg-gray-100 shadow-inner">
         <div className="flex">
           <input
             type="text"
             value={inputMessage}
             onChange={(e) => setInputMessage(e.target.value)}
-            className="flex-1 px-4 py-2 bg-gray-700 text-white rounded-l-md focus:outline-none"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             placeholder="Type your message..."
           />
           <button
             type="submit"
-            className="px-4 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors duration-300"
+            className="px-6 py-2 bg-blue-600 text-white rounded-r-md hover:bg-blue-700 transition-colors duration-300"
           >
             Send
           </button>
@@ -87,4 +105,3 @@ function ChatPage() {
 }
 
 export default ChatPage;
-
