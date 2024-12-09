@@ -1,6 +1,11 @@
 import React from "react";
+import axios from "axios";
 
 function DoctorProfile({ doctor }) {
+
+
+  
+
   return (
     <div className="card bg-gray-800 text-white rounded-lg shadow-md p-6 w-full max-w-sm">
       {/* Doctor's Image */}

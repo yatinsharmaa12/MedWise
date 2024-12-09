@@ -14,6 +14,7 @@ import Signup from './components/Signup'
 import Footer from './components/Footer'
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify'
+import ChatPage from './pages/ChatPage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -29,6 +30,7 @@ function App() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/consult" element={<Consult />} />
       <Route path="/report" element={<Report />} />
+      <Route path="/chat/:doctorId" element={<ChatPage />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
     </>
